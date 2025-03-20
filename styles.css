@@ -1,65 +1,27 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
+
+/* Reset base styles */
 body {
-    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Mono', monospace;
     background: #ffffff;
-    color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
     cursor: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-a {
-    text-decoration: underline;
-    color: #0073e6;
+/* Hide default cursor on all elements */
+* {
+    cursor: none !important;
 }
 
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-h2 {
-    border-bottom: 2px solid black;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin: 10px 0;
-}
-
-.cursor {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: absolute;
-    background: rgb(40, 122, 238);
-    pointer-events: none;
-    transition: transform 0.15s ease;
-}
-
-@keyframes clickEffect {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.5); }
-    100% { transform: scale(1); }
-}
-
-html {
-    scroll-snap-type: y mandatory;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
-
-.hero {
-    height: 100vh;
+/* Section styling */
+section {
+    min-height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -68,46 +30,391 @@ body {
     position: relative;
 }
 
-.hero-content {
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    background-image: linear-gradient(
-        45deg,
-        #ff6b6b,
-        #4ecdc4,
-        #45b7d1,
-        #96c93d,
-        #ff6b6b
-    );
-    background-size: 200% 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    transition: all 0.3s ease;
-}
-
-.hero p {
-    font-size: 1.5rem;
-}
-
-.main-content {
+/* Hero section */
+.hero {
+    background: var(--color-bg-hero);
+    position: relative;
+    overflow: hidden;
     min-height: 100vh;
-    scroll-snap-align: start;
-    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Add smooth scrolling */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        linear-gradient(
+            45deg,
+            rgba(255, 0, 0, 0.3) 0%,
+            rgba(255, 165, 0, 0.3) 20%,
+            rgba(255, 255, 0, 0.3) 40%,
+            rgba(0, 255, 0, 0.3) 60%,
+            rgba(0, 0, 255, 0.3) 80%,
+            rgba(238, 130, 238, 0.3) 100%
+        );
+    background-size: 400% 400%;
+    filter: blur(60px);
+    opacity: 0.7;
+    animation: waveEffect 8s ease infinite;
+    z-index: 0;
+}
+
+@keyframes waveEffect {
+    0% {
+        background-position: 0% 50%;
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        background-position: 100% 50%;
+        transform: scale(1.05) rotate(1deg);
+    }
+    50% {
+        background-position: 50% 100%;
+        transform: scale(1) rotate(0deg);
+    }
+    75% {
+        background-position: 50% 0%;
+        transform: scale(1.05) rotate(-1deg);
+    }
+    100% {
+        background-position: 0% 50%;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.hero::after {
+    display: none;
+}
+
+/* About section */
+.about {
+    background: #FF4D4D;
+    color: white;
+}
+
+/* Work section */
+.work {
+    background: #4DC3FF;
+    color: white;
+}
+
+/* Projects section */
+.projects {
+    background: #FFB84D;
+    color: white;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+    position: relative;
+    display: inline-block;
+}
+
+h2 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 0;
+    border: none;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    max-width: 650px;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+/* Content containers */
+.section-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Animated elements */
+.floating-element {
+    display: none;
+}
+
+/* Animations */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 200% 200%;
+    }
+}
+
+/* Scroll snapping */
 html {
+    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
 
-/* Remove these previous classes as they're no longer needed */
-.hero h1::before,
-.hero h1:hover::before,
-.gradient-mask {
-    display: none;
+/* Links styling */
+a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px solid currentColor;
+    transition: opacity 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+/* Custom cursor */
+.cursor {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    background: var(--color-hover);
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);  /* Keep the cursor centered */
+    z-index: 9999;
+}
+
+.cursor.expanded {
+    transform: translate(-50%, -50%) scale(2.5);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Center the content */
+.hero .section-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 2rem;
+}
+
+.hero-text {
+    width: 100%;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-family: 'Bytesized', monospace;
+    font-size: 7.5rem;
+    color: var(--color-text);
+    opacity: 0.9;
+    margin: 0;
+    padding: 0;
+    letter-spacing: -1px;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.hero p {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    color: var(--color-text);
+    opacity: 0.8;
+    margin-top: 2rem;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+/* Update existing styles and add new ones */
+:root {
+    --color-bg-hero: #ffffff;
+    --color-bg-about: #f5f6fa;
+    --color-bg-work: #e8f4f8;
+    --color-bg-projects: #f0f2f5;
+    --color-bg-contact: #f8f9fa;
+    --color-text: #2d3436;
+    --color-accent: #68edcb;
+    --color-hover: #9b59b6;  /* Purple color for hover effects */
+}
+
+.navigation {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    gap: 2rem;
+}
+
+.navigation a {
+    color: var(--color-hover);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.navigation a:hover {
+    border-color: var(--color-hover);
+    color: var(--color-hover);
+    opacity: 0.8;
+}
+
+/* Update section backgrounds */
+.about {
+    background: var(--color-bg-about);
+    color: var(--color-text);
+}
+
+.work {
+    background: var(--color-bg-work);
+    color: var(--color-text);
+}
+
+.projects {
+    background: var(--color-bg-projects);
+    color: var(--color-text);
+}
+
+.contact {
+    background: var(--color-bg-contact);
+    color: var(--color-text);
+}
+
+/* Update links */
+a {
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-accent);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+a:hover {
+    color: var(--color-hover);
+    opacity: 1;
+}
+
+/* Update contact section styling */
+.contact .section-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-links p {
+    font-size: 1.1rem;
+    margin: 0.6rem 0;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    width: 100%;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-image {
+    flex: 0 0 300px; /* Fixed width for the image container */
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .about-image {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Update list items in work and projects sections */
+.work ul li,
+.projects ul li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    max-width: 750px;
+}
+
+/* Update about section text */
+.about-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Update footer styles */
+.footer {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+    background: var(--color-bg-hero);
+}
+
+.footer p {
+    color: var(--color-hover);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Update copyright symbol */
+.footer p::after {
+    content: '©';
+    font-size: 1.1rem;
+    margin-left: 0.3rem;
+}
+
+/* Add this to ensure main content fills space */
+main {
+    flex: 1;
 }
